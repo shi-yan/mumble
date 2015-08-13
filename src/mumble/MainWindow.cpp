@@ -33,7 +33,6 @@
 
 #include "MainWindow.h"
 
-#include "About.h"
 #include "ACL.h"
 #include "ACLEditor.h"
 #include "AudioInput.h"
