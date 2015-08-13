@@ -2200,10 +2200,6 @@ void MainWindow::on_qaHelpWhatsThis_triggered() {
 	QWhatsThis::enterWhatsThisMode();
 }
 
-void MainWindow::on_qaHelpAboutQt_triggered() {
-	QMessageBox::aboutQt(this, tr("About Qt"));
-}
-
 void MainWindow::on_qaHelpVersionCheck_triggered() {
 	new VersionCheck(false, this);
 }

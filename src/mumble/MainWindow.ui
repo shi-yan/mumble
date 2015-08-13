@@ -63,7 +63,6 @@
     </property>
     <addaction name="qaHelpWhatsThis"/>
     <addaction name="separator"/>
-    <addaction name="qaHelpAboutQt"/>
     <addaction name="separator"/>
     <addaction name="qaHelpVersionCheck"/>
    </widget>
