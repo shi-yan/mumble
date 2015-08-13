@@ -31,7 +31,6 @@
 
 #include "mumble_pch.hpp"
 
-#include "About.h"
 #include "ACLEditor.h"
 #include "AudioInput.h"
 #include "AudioStats.h"

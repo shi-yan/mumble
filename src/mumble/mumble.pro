@@ -102,7 +102,6 @@ HEADERS *= BanEditor.h \
     CustomElements.h \
     MainWindow.h \
     ServerHandler.h \
-    About.h \
     ConnectDialog.h \
     GlobalShortcut.h \
     TextToSpeech.h \
@@ -165,7 +164,6 @@ SOURCES *= BanEditor.cpp \
     CustomElements.cpp \
     MainWindow.cpp \
     ServerHandler.cpp \
-    About.cpp \
     ConnectDialog.cpp \
     Settings.cpp \
     Database.cpp \
@@ -211,7 +209,7 @@ SOURCES *= BanEditor.cpp \
     ThemeInfo.cpp \
     Themes.cpp
 
-DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
+DIST		*= ../../icons/mumble.ico smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_translations.qrc mumble_flags.qrc ../../themes/MumbleTheme.qrc
 FORMS *= ConfigDialog.ui \
     MainWindow.ui \

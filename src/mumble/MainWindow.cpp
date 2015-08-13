@@ -2201,11 +2201,6 @@ void MainWindow::on_qaHelpWhatsThis_triggered() {
 	QWhatsThis::enterWhatsThisMode();
 }
 
-void MainWindow::on_qaHelpAbout_triggered() {
-	AboutDialog adAbout(this);
-	adAbout.exec();
-}
-
 void MainWindow::on_qaHelpAboutQt_triggered() {
 	QMessageBox::aboutQt(this, tr("About Qt"));
 }
