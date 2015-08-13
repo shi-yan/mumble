@@ -64,7 +64,6 @@
     <addaction name="qaHelpWhatsThis"/>
     <addaction name="separator"/>
     <addaction name="separator"/>
-    <addaction name="qaHelpVersionCheck"/>
    </widget>
    <widget class="QMenu" name="qmServer">
     <property name="title">
@@ -585,20 +584,6 @@ the channel's context menu.</string>
     <string>Click this to enter &quot;What's This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</string>
    </property>
   </action>
-  <action name="qaHelpAbout">
-   <property name="text">
-    <string>&amp;About</string>
-   </property>
-   <property name="toolTip">
-    <string>Information about Mumble</string>
-   </property>
-   <property name="whatsThis">
-    <string>Shows a small dialog with information and license for Mumble.</string>
-   </property>
-   <property name="menuRole">
-    <enum>QAction::AboutRole</enum>
-   </property>
-  </action>
   <action name="qaHelpAboutSpeex">
    <property name="text">
     <string>About &amp;Speex</string>
@@ -611,31 +596,6 @@ the channel's context menu.</string>
    </property>
    <property name="menuRole">
     <enum>QAction::ApplicationSpecificRole</enum>
-   </property>
-  </action>
-  <action name="qaHelpAboutQt">
-   <property name="text">
-    <string>About &amp;Qt</string>
-   </property>
-   <property name="toolTip">
-    <string>Information about Qt</string>
-   </property>
-   <property name="whatsThis">
-    <string>Shows a small dialog with information about Qt.</string>
-   </property>
-   <property name="menuRole">
-    <enum>QAction::AboutQtRole</enum>
-   </property>
-  </action>
-  <action name="qaHelpVersionCheck">
-   <property name="text">
-    <string>Check for &amp;Updates</string>
-   </property>
-   <property name="toolTip">
-    <string>Check for new version of Mumble</string>
-   </property>
-   <property name="whatsThis">
-    <string>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</string>
    </property>
   </action>
   <action name="qaChannelSendMessage">

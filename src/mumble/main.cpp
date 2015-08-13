@@ -51,7 +51,6 @@
 #ifdef USE_VLD
 #include "vld.h"
 #endif
-#include "VersionCheck.h"
 #include "NetworkConfig.h"
 #include "CrashReporter.h"
 #include "SocketRPC.h"
@@ -462,17 +461,6 @@ int main(int argc, char **argv) {
 	if (QDateTime::currentDateTime().daysTo(g.s.kpCertificate.first.first().expiryDate()) < 14)
 		g.l->log(Log::Warning, CertWizard::tr("<b>Certificate Expiry:</b> Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on."));
 
-#ifdef QT_NO_DEBUG
-#ifndef SNAPSHOT_BUILD
-	if (g.s.bUpdateCheck)
-#endif
-		new VersionCheck(true, g.mw);
-#ifdef SNAPSHOT_BUILD
-	new VersionCheck(false, g.mw, true);
-#endif
-#else
-	g.mw->msgBox(MainWindow::tr("Skipping version check in debug mode."));
-#endif
 	if (g.s.bPluginCheck) {
 		g.p->checkUpdates();
 	}

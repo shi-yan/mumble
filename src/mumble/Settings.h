@@ -285,7 +285,6 @@ struct Settings {
 
 	QString qsImagePath;
 
-	bool bUpdateCheck;
 	bool bPluginCheck;
 
 	// PTT Button window

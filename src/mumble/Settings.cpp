@@ -287,10 +287,8 @@ Settings::Settings() {
 	bExpert = false;
 
 #ifdef NO_UPDATE_CHECK
-	bUpdateCheck = false;
 	bPluginCheck = false;
 #else
-	bUpdateCheck = true;
 	bPluginCheck = true;
 #endif
 

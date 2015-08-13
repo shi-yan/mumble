@@ -107,7 +107,6 @@ HEADERS *= BanEditor.h \
     TextToSpeech.h \
     Settings.h \
     Database.h \
-    VersionCheck.h \
     Global.h \
     UserModel.h \
     Audio.h \
@@ -167,7 +166,6 @@ SOURCES *= BanEditor.cpp \
     ConnectDialog.cpp \
     Settings.cpp \
     Database.cpp \
-    VersionCheck.cpp \
     Global.cpp \
     UserModel.cpp \
     Audio.cpp \

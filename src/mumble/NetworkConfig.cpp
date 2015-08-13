@@ -83,7 +83,6 @@ void NetworkConfig::load(const Settings &r) {
 
 	loadCheckBox(qcbImageDownload, r.iMaxImageSize <= 0);
 
-	loadCheckBox(qcbAutoUpdate, r.bUpdateCheck);
 	loadCheckBox(qcbPluginUpdate, r.bPluginCheck);
 	loadCheckBox(qcbUsage, r.bUsage);
 

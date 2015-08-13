@@ -51,7 +51,6 @@
 #include "UserEdit.h"
 #include "UserInformation.h"
 #include "UserModel.h"
-#include "VersionCheck.h"
 #include "ViewCert.h"
 
 #define ACTOR_INIT \

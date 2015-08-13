@@ -2200,10 +2200,6 @@ void MainWindow::on_qaHelpWhatsThis_triggered() {
 	QWhatsThis::enterWhatsThisMode();
 }
 
-void MainWindow::on_qaHelpVersionCheck_triggered() {
-	new VersionCheck(false, this);
-}
-
 void MainWindow::on_gsMuteSelf_down(QVariant v) {
 	int val = v.toInt();
 	if (
