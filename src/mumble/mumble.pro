@@ -209,7 +209,7 @@ SOURCES *= BanEditor.cpp \
     ThemeInfo.cpp \
     Themes.cpp
 
-DIST		*= ../../icons/mumble.ico smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
+DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_translations.qrc mumble_flags.qrc ../../themes/MumbleTheme.qrc
 FORMS *= ConfigDialog.ui \
     MainWindow.ui \
