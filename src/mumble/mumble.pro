@@ -113,7 +113,6 @@ HEADERS *= BanEditor.h \
     ConfigDialog.h \
     Plugins.h \
     PTTButtonWidget.h \
-    LookConfig.h \
     Overlay.h \
     OverlayText.h \
     SharedMemory.h \
@@ -143,9 +142,7 @@ HEADERS *= BanEditor.h \
     OverlayEditor.h \
     OverlayEditorScene.h \
     MumbleApplication.h \
-    ApplicationPalette.h \
-    ThemeInfo.h \
-    Themes.h
+    ApplicationPalette.h
 
 SOURCES *= BanEditor.cpp \
     ACLEditor.cpp \
@@ -172,7 +169,6 @@ SOURCES *= BanEditor.cpp \
     ConfigDialog.cpp \
     Plugins.cpp \
     PTTButtonWidget.cpp \
-    LookConfig.cpp \
     OverlayClient.cpp \
     OverlayConfig.cpp \
     OverlayEditor.cpp \
@@ -203,9 +199,7 @@ SOURCES *= BanEditor.cpp \
     VoiceRecorderDialog.cpp \
     WebFetch.cpp \
     MumbleApplication.cpp \
-    smallft.cpp \
-    ThemeInfo.cpp \
-    Themes.cpp
+    smallft.cpp
 
 DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_translations.qrc mumble_flags.qrc ../../themes/MumbleTheme.qrc
@@ -219,7 +213,6 @@ FORMS *= ConfigDialog.ui \
     PTTButtonWidget.ui \
     Overlay.ui \
     OverlayEditor.ui \
-    LookConfig.ui \
     AudioInput.ui \
     AudioOutput.ui \
     Log.ui \
