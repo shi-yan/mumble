@@ -42,7 +42,6 @@
 
 #include "AudioStats.h"
 #include "AudioOutput.h"
-#include "GlobalShortcut.h"
 #include "Settings.h"
 
 class CompletablePage : public QWizardPage {

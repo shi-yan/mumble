@@ -42,7 +42,6 @@
 #include "NetworkConfig.h"
 #include "ServerHandler.h"
 #include "MainWindow.h"
-#include "GlobalShortcut.h"
 
 OverlayUser::OverlayUser(ClientUser *cu, unsigned int height, OverlaySettings *osptr) : OverlayGroup(), os(osptr), uiSize(height), cuUser(cu), tsColor(Settings::Passive) {
 	setup();

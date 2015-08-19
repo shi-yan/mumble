@@ -103,7 +103,6 @@ HEADERS *= BanEditor.h \
     MainWindow.h \
     ServerHandler.h \
     ConnectDialog.h \
-    GlobalShortcut.h \
     TextToSpeech.h \
     Settings.h \
     Database.h \
@@ -182,7 +181,6 @@ SOURCES *= BanEditor.cpp \
     ViewCert.cpp \
     Messages.cpp \
     TextMessage.cpp \
-    GlobalShortcut.cpp \
     NetworkConfig.cpp \
     LCD.cpp \
     Usage.cpp \
@@ -220,8 +218,6 @@ FORMS *= ConfigDialog.ui \
     AudioStats.ui \
     NetworkConfig.ui \
     LCD.ui \
-    GlobalShortcut.ui \
-    GlobalShortcutTarget.ui \
     Cert.ui \
     UserEdit.ui \
     AudioWizard.ui \
@@ -312,10 +308,6 @@ CONFIG(sbcelt) {
   CONFIG		*= dbus
 }
 
-!CONFIG(no-g15) {
-  CONFIG *= g15
-}
-
 CONFIG(no-vorbis-recording) {
   DEFINES *= NO_VORBIS_RECORDING
 }
@@ -341,8 +333,8 @@ win32 {
   } else {
     RC_FILE = mumble.rc
   }
-  HEADERS	*= GlobalShortcut_win.h Overlay_win.h TaskList.h
-  SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp SharedMemory_win.cpp Log_win.cpp os_win.cpp TaskList.cpp ../../overlay/HardHook.cpp ../../overlay/ods.cpp
+  HEADERS	*= Overlay_win.h TaskList.h
+  SOURCES	*= TextToSpeech_win.cpp Overlay_win.cpp SharedMemory_win.cpp Log_win.cpp os_win.cpp TaskList.cpp ../../overlay/HardHook.cpp ../../overlay/ods.cpp
   LIBS		*= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -llibsndfile-1 -lshell32 -lshlwapi -luser32 -lgdi32 -lpsapi
   LIBS		*= -ldelayimp -delayload:shell32.dll
 
@@ -414,9 +406,9 @@ unix {
 
     LIBS += -framework Security -framework SecurityInterface -framework ApplicationServices
 
-    HEADERS *= GlobalShortcut_macx.h ConfigDialogDelegate.h
+    HEADERS *= ConfigDialogDelegate.h
     SOURCES *= SharedMemory_unix.cpp
-    OBJECTIVE_SOURCES *= TextToSpeech_macx.mm GlobalShortcut_macx.mm os_macx.mm Log_macx.mm
+    OBJECTIVE_SOURCES *= TextToSpeech_macx.mm os_macx.mm Log_macx.mm
 
     !CONFIG(no-cocoa) {
         DEFINES *= USE_COCOA
@@ -444,8 +436,7 @@ unix {
     SOURCES += CoreAudio.cpp
     HEADERS += CoreAudio.h
   } else {
-    HEADERS *= GlobalShortcut_unix.h
-    SOURCES *= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp SharedMemory_unix.cpp Log_unix.cpp
+    SOURCES *= TextToSpeech_unix.cpp Overlay_unix.cpp SharedMemory_unix.cpp Log_unix.cpp
     PKGCONFIG *= x11
     LIBS *= -lrt -lXi
 
@@ -531,18 +522,6 @@ wasapi {
 	HEADERS	*= WASAPI.h WASAPINotificationClient.h
 	SOURCES	*= WASAPI.cpp WASAPINotificationClient.cpp
 	LIBS	*= -lAVRT -delayload:AVRT.DLL
-}
-
-g15 {
-	DEFINES *= USE_G15
-	unix:!macx {
-		SOURCES *= G15LCDEngine_unix.cpp
-		HEADERS *= G15LCDEngine_unix.h
-		LIBS *= -lg15daemon_client
-	} else {
-		SOURCES *= G15LCDEngine_helper.cpp
-		HEADERS *= G15LCDEngine_helper.h ../../g15helper/g15helper.h
-	}
 }
 
 CONFIG(no-update) {

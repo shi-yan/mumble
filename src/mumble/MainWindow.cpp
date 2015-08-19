@@ -46,7 +46,6 @@
 #include "ConnectDialog.h"
 #include "Database.h"
 #include "Global.h"
-#include "GlobalShortcut.h"
 #include "Log.h"
 #include "Net.h"
 #include "NetworkConfig.h"
@@ -61,12 +60,10 @@
 #include "UserEdit.h"
 #include "UserInformation.h"
 #include "UserModel.h"
-#include "VersionCheck.h"
 #include "ViewCert.h"
 #include "VoiceRecorderDialog.h"
 #include "../SignalCurry.h"
 #include "Settings.h"
-#include "Themes.h"
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -188,71 +185,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 }
 
 void MainWindow::createActions() {
-	int idx = 1;
-	gsPushTalk=new GlobalShortcut(this, idx++, tr("Push-to-Talk", "Global Shortcut"), false);
-	gsPushTalk->setObjectName(QLatin1String("PushToTalk"));
-	gsPushTalk->qsToolTip = tr("Push and hold this button to send voice.", "Global Shortcut");
-	gsPushTalk->qsWhatsThis = tr("This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.", "Global Shortcut");
 
-
-	gsResetAudio=new GlobalShortcut(this, idx++, tr("Reset Audio Processor", "Global Shortcut"));
-	gsResetAudio->setObjectName(QLatin1String("ResetAudio"));
-
-	gsMuteSelf=new GlobalShortcut(this, idx++, tr("Mute Self", "Global Shortcut"), false, 0);
-	gsMuteSelf->setObjectName(QLatin1String("gsMuteSelf"));
-	gsMuteSelf->qsToolTip = tr("Set self-mute status.", "Global Shortcut");
-	gsMuteSelf->qsWhatsThis = tr("This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.", "Global Shortcut");
-
-	gsDeafSelf=new GlobalShortcut(this, idx++, tr("Deafen Self", "Global Shortcut"), false, 0);
-	gsDeafSelf->setObjectName(QLatin1String("gsDeafSelf"));
-	gsDeafSelf->qsToolTip = tr("Set self-deafen status.", "Global Shortcut");
-	gsDeafSelf->qsWhatsThis = tr("This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.", "Global Shortcut");
-
-	gsUnlink=new GlobalShortcut(this, idx++, tr("Unlink Plugin", "Global Shortcut"));
-	gsUnlink->setObjectName(QLatin1String("UnlinkPlugin"));
-
-	gsPushMute=new GlobalShortcut(this, idx++, tr("Push-to-Mute", "Global Shortcut"));
-	gsPushMute->setObjectName(QLatin1String("PushToMute"));
-
-	gsJoinChannel=new GlobalShortcut(this, idx++, tr("Join Channel", "Global Shortcut"));
-	gsJoinChannel->setObjectName(QLatin1String("MetaChannel"));
-	gsJoinChannel->qsToolTip = tr("Use in conjunction with Whisper to.", "Global Shortcut");
-
-	gsToggleOverlay=new GlobalShortcut(this, idx++, tr("Toggle Overlay", "Global Shortcut"), false);
-	gsToggleOverlay->setObjectName(QLatin1String("ToggleOverlay"));
-	gsToggleOverlay->qsToolTip = tr("Toggle state of in-game overlay.", "Global Shortcut");
-	gsToggleOverlay->qsWhatsThis = tr("This will switch the states of the in-game overlay.", "Global Shortcut");
-	connect(gsToggleOverlay, SIGNAL(down(QVariant)), g.o, SLOT(toggleShow()));
-
-	gsMinimal=new GlobalShortcut(this, idx++, tr("Toggle Minimal", "Global Shortcut"));
-	gsMinimal->setObjectName(QLatin1String("ToggleMinimal"));
-
-	gsVolumeUp=new GlobalShortcut(this, idx++, tr("Volume Up (+10%)", "Global Shortcut"));
-	gsVolumeUp->setObjectName(QLatin1String("VolumeUp"));
-
-	gsVolumeDown=new GlobalShortcut(this, idx++, tr("Volume Down (-10%)", "Global Shortcut"));
-	gsVolumeDown->setObjectName(QLatin1String("VolumeDown"));
-
-	qstiIcon = new QSystemTrayIcon(qiIcon, this);
-	qstiIcon->setToolTip(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
-	qstiIcon->setObjectName(QLatin1String("Icon"));
-
-	gsWhisper = new GlobalShortcut(this, idx++, tr("Whisper/Shout"), false, QVariant::fromValue(ShortcutTarget()));
-	gsWhisper->setObjectName(QLatin1String("gsWhisper"));
-
-	gsLinkChannel=new GlobalShortcut(this, idx++, tr("Link Channel", "Global Shortcut"));
-	gsLinkChannel->setObjectName(QLatin1String("MetaLink"));
-	gsLinkChannel->qsToolTip = tr("Use in conjunction with Whisper to.", "Global Shortcut");
-
-	gsCycleTransmitMode=new GlobalShortcut(this, idx++, tr("Cycle Transmit Mode", "Global Shortcut"));
-	gsCycleTransmitMode->setObjectName(QLatin1String("gsCycleTransmitMode"));
-
-	gsSendTextMessage=new GlobalShortcut(this, idx++, tr("Send Text Message", "Global Shortcut"), true, QVariant(QString()));
-	gsSendTextMessage->setObjectName(QLatin1String("gsSendTextMessage"));
-
-#ifndef Q_OS_MAC
-	qstiIcon->show();
-#endif
 }
 
 void MainWindow::setupGui()  {
@@ -297,9 +230,6 @@ void MainWindow::setupGui()  {
 	qaConfigMinimal->setChecked(g.s.bMinimalView);
 	qaConfigHideFrame->setChecked(g.s.bHideFrame);
 
-	connect(gsResetAudio, SIGNAL(down(QVariant)), qaAudioReset, SLOT(trigger()));
-	connect(gsUnlink, SIGNAL(down(QVariant)), qaAudioUnlink, SLOT(trigger()));
-	connect(gsMinimal, SIGNAL(down(QVariant)), qaConfigMinimal, SLOT(trigger()));
 
 	dtbLogDockTitle = new DockTitleBar();
 	qdwLog->setTitleBarWidget(dtbLogDockTitle);
@@ -2268,7 +2198,7 @@ Channel *MainWindow::mapChannel(int idx) const {
 
 	if (idx < 0) {
 		switch (idx) {
-			case SHORTCUT_TARGET_ROOT:
+/*			case SHORTCUT_TARGET_ROOT:
 				c = Channel::get(0);
 				break;
 			case SHORTCUT_TARGET_PARENT:
@@ -2282,7 +2212,7 @@ Channel *MainWindow::mapChannel(int idx) const {
 					c = pmModel->getSubChannel(ClientUser::get(g.uiSession)->cChannel->cParent, SHORTCUT_TARGET_PARENT_SUBCHANNEL - idx);
 				else
 					c = pmModel->getSubChannel(ClientUser::get(g.uiSession)->cChannel, SHORTCUT_TARGET_SUBCHANNEL - idx);
-				break;
+                break;*/
 		}
 	} else {
 		c = Channel::get(idx);
@@ -2391,7 +2321,7 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 	ShortcutTarget st = scdata.value<ShortcutTarget>();
 
 	if (down) {
-		if (gsJoinChannel->active()) {
+/*		if (gsJoinChannel->active()) {
 			if (! st.bUsers) {
 				Channel *c = mapChannel(st.iChannel);
 				if (c) {
@@ -2400,8 +2330,8 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 				return;
 			}
 		}
-
-		if (gsLinkChannel->active()) {
+*/
+        /*if (gsLinkChannel->active()) {
 			if (! st.bUsers) {
 				Channel *c = ClientUser::get(g.uiSession)->cChannel;
 				Channel *l = mapChannel(st.iChannel);
@@ -2415,7 +2345,7 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 				return;
 			}
 		}
-
+*/
 		addTarget(&st);
 		updateTarget();
 
@@ -2585,7 +2515,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	unsigned short port;
 	g.sh->getConnectionInfo(host, port, uname, pw);
 	if (Database::setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts))
-		GlobalShortcutEngine::engine->bNeedRemap = true;
+    //	GlobalShortcutEngine::engine->bNeedRemap = true;
 
 	if (aclEdit) {
 		aclEdit->reject();

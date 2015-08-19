@@ -33,7 +33,6 @@
 #include "MumbleApplication.h"
 
 #include "MainWindow.h"
-#include "GlobalShortcut.h"
 #include "Global.h"
 
 MumbleApplication *MumbleApplication::instance() {

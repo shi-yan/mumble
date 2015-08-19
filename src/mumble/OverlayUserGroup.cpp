@@ -45,7 +45,6 @@
 #include "NetworkConfig.h"
 #include "ServerHandler.h"
 #include "MainWindow.h"
-#include "GlobalShortcut.h"
 
 template <typename T>
 QRectF OverlayGroup::boundingRect() const {

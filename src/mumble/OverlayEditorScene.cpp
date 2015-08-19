@@ -43,7 +43,6 @@
 #include "NetworkConfig.h"
 #include "ServerHandler.h"
 #include "MainWindow.h"
-#include "GlobalShortcut.h"
 
 OverlayEditorScene::OverlayEditorScene(const OverlaySettings &srcos, QObject *p) : QGraphicsScene(p), os(srcos) {
 	tsColor = Settings::Talking;

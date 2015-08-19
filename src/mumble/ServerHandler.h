@@ -74,6 +74,8 @@ class ServerHandlerMessageEvent : public QEvent {
 
 typedef boost::shared_ptr<Connection> ConnectionPtr;
 
+//------------ most important class
+
 class ServerHandler : public QThread {
 	private:
 		Q_OBJECT

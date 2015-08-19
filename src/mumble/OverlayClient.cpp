@@ -42,8 +42,6 @@
 #include "NetworkConfig.h"
 #include "ServerHandler.h"
 #include "MainWindow.h"
-#include "GlobalShortcut.h"
-#include "Themes.h"
 
 OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p)
 	: QObject(p)

@@ -149,12 +149,12 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	abAmplify->qcAbove = Qt::red;
 
 	// Trigger
-	foreach(const Shortcut &s, g.s.qlShortcuts) {
+    /*foreach(const Shortcut &s, g.s.qlShortcuts) {
 		if (s.iIndex == g.mw->gsPushTalk->idx) {
 			skwPTT->setShortcut(s.qlButtons);
 			break;
 		}
-	}
+    }*/
 
 	if (g.s.atTransmit == Settings::PushToTalk)
 		qrPTT->setChecked(true);
@@ -577,7 +577,7 @@ void AudioWizard::on_skwPTT_keySet(bool valid, bool last) {
 
 	if (last) {
 
-		const QList<QVariant> &buttons = skwPTT->getShortcut();
+/*		const QList<QVariant> &buttons = skwPTT->getShortcut();
 		QList<Shortcut> ql;
 		bool found = false;
 		foreach(Shortcut s, g.s.qlShortcuts) {
@@ -600,8 +600,8 @@ void AudioWizard::on_skwPTT_keySet(bool valid, bool last) {
 		}
 		g.s.qlShortcuts = ql;
 		GlobalShortcutEngine::engine->bNeedRemap = true;
-		GlobalShortcutEngine::engine->needRemap();
-	}
+        GlobalShortcutEngine::engine->needRemap();*/
+    }
 }
 
 void AudioWizard::on_qcbEcho_clicked(bool on) {
@@ -622,7 +622,7 @@ void AudioWizard::on_qcbPositional_clicked(bool on) {
 
 void AudioWizard::updateTriggerWidgets(bool ptt) {
 	qwVAD->setEnabled(!ptt);
-	qwpTrigger->setComplete(!ptt || (skwPTT->qlButtons.count() > 0));
+//	qwpTrigger->setComplete(!ptt || (skwPTT->qlButtons.count() > 0));
 }
 
 void AudioWizard::on_qcbAttenuateOthers_clicked(bool checked) {

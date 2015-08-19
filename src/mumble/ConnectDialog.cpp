@@ -31,13 +31,6 @@
 #include "mumble_pch.hpp"
 
 #include "ConnectDialog.h"
-
-#ifdef USE_BONJOUR
-#include "BonjourClient.h"
-#include "BonjourServiceBrowser.h"
-#include "BonjourServiceResolver.h"
-#endif
-
 #include "Channel.h"
 #include "Database.h"
 #include "Global.h"
@@ -84,14 +77,7 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 	siFavorite->setExpanded(true);
 	siFavorite->setHidden(true);
 
-#ifdef USE_BONJOUR
-	siLAN = new ServerItem(tr("LAN"), ServerItem::LANType);
-	addTopLevelItem(siLAN);
-	siLAN->setExpanded(true);
-	siLAN->setHidden(true);
-#else
 	siLAN = NULL;
-#endif
 
 	if (!g.s.disablePublicList) {
 		siPublic = new ServerItem(tr("Public Internet"), ServerItem::PublicType);
@@ -249,7 +235,6 @@ ServerItem::ServerItem(const FavoriteServer &fs) : QTreeWidgetItem(QTreeWidgetIt
 
 	if (fs.qsHostname.startsWith(QLatin1Char('@'))) {
 		qsBonjourHost = fs.qsHostname.mid(1);
-		brRecord = BonjourRecord(qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
 	} else {
 		qsHostname = fs.qsHostname;
 	}
@@ -286,23 +271,9 @@ ServerItem::ServerItem(const QString &name, const QString &host, unsigned short 
 
 	if (host.startsWith(QLatin1Char('@'))) {
 		qsBonjourHost = host.mid(1);
-		brRecord = BonjourRecord(qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
 	} else {
 		qsHostname = host;
 	}
-
-	init();
-}
-
-ServerItem::ServerItem(const BonjourRecord &br) : QTreeWidgetItem(QTreeWidgetItem::UserType) {
-	siParent = NULL;
-	bParent = false;
-	itType = LANType;
-	qsName = br.serviceName;
-	qsBonjourHost = qsName;
-	brRecord = br;
-	usPort = 0;
-	bCA = false;
 
 	init();
 }
@@ -337,7 +308,6 @@ ServerItem::ServerItem(const ServerItem *si) {
 	qsContinentCode = si->qsContinentCode;
 	qsUrl = si->qsUrl;
 	qsBonjourHost = si->qsBonjourHost;
-	brRecord = si->brRecord;
 	qlAddresses = si->qlAddresses;
 	bCA = si->bCA;
 
@@ -1102,11 +1072,9 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 			if (cde->qsHostname.startsWith(QLatin1Char('@'))) {
 				si->qsHostname = QString();
 				si->qsBonjourHost = cde->qsHostname.mid(1);
-				si->brRecord = BonjourRecord(si->qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
 			} else {
 				si->qsHostname = cde->qsHostname;
 				si->qsBonjourHost = QString();
-				si->brRecord = BonjourRecord();
 			}
 			startDns(si);
 		}
@@ -1262,39 +1230,6 @@ void ConnectDialog::onResolved(BonjourRecord record, QString host, int port) {
 			}
 		}
 	}
-}
-
-void ConnectDialog::onUpdateLanList(const QList<BonjourRecord> &list) {
-	QSet<ServerItem *> items;
-	QSet<ServerItem *> old = qtwServers->siLAN->qlChildren.toSet();
-
-	foreach(const BonjourRecord &record, list) {
-		bool found = false;
-		foreach(ServerItem *si, old) {
-			if (si->brRecord == record) {
-				items.insert(si);
-				found = true;
-				break;
-			}
-		}
-		if (! found) {
-			ServerItem *si = new ServerItem(record);
-			qlItems << si;
-			g.bc->bsrResolver->resolveBonjourRecord(record);
-			startDns(si);
-			qtwServers->siLAN->addServerItem(si);
-		}
-	}
-	QSet<ServerItem *> remove = old.subtract(items);
-	foreach(ServerItem *si, remove) {
-		stopDns(si);
-		qlItems.removeAll(si);
-		delete si;
-	}
-}
-
-void ConnectDialog::onLanBrowseError(DNSServiceErrorType err) {
-	qWarning()<<"Bonjour reported browser error "<< err;
 }
 
 void ConnectDialog::onLanResolveError(BonjourRecord br, DNSServiceErrorType err) {

@@ -41,7 +41,6 @@
 #include "ConnectDialog.h"
 #include "Database.h"
 #include "Global.h"
-#include "GlobalShortcut.h"
 #include "Log.h"
 #include "MainWindow.h"
 #include "Overlay.h"
@@ -144,7 +143,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 
 	g.sh->getConnectionInfo(host, port, uname, pw);
 
-	QList<Shortcut> sc = Database::getShortcuts(g.sh->qbaDigest);
+/*	QList<Shortcut> sc = Database::getShortcuts(g.sh->qbaDigest);
 	if (! sc.isEmpty()) {
 		for (int i=0;i<sc.count(); ++i) {
 			Shortcut &s = sc[i];
@@ -152,7 +151,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 		}
 		g.s.qlShortcuts << sc;
 		GlobalShortcutEngine::engine->bNeedRemap = true;
-	}
+    }*/
 
 	const ClientUser *user = ClientUser::get(g.uiSession);
 	connect(user, SIGNAL(talkingStateChanged()), this, SLOT(userStateChanged()));

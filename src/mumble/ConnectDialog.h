@@ -47,11 +47,6 @@
 
 #include <QtNetwork/QHostInfo>
 
-#ifdef USE_BONJOUR
-#include <dns_sd.h>
-#endif
-
-#include "BonjourRecord.h"
 #include "Net.h"
 #include "Timer.h"
 
@@ -153,7 +148,6 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		QString qsUrl;
 
 		QString qsBonjourHost;
-		BonjourRecord brRecord;
 
 		QList<QHostAddress> qlAddresses;
 
@@ -162,7 +156,6 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		ServerItem(const FavoriteServer &fs);
 		ServerItem(const PublicInfo &pi);
 		ServerItem(const QString &name, const QString &host, unsigned short port, const QString &uname, const QString &password = QString());
-		ServerItem(const BonjourRecord &br);
 		ServerItem(const QString &name, ItemType itype, const QString &continent = QString(), const QString &country = QString());
 		ServerItem(const ServerItem *si);
 		~ServerItem();
@@ -303,17 +296,6 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		unsigned short usPort;
 		ConnectDialog(QWidget *parent, bool autoconnect);
 		~ConnectDialog();
-
-#ifdef USE_BONJOUR
-	protected:
-		QList<BonjourRecord> qlBonjourActive;
-	public slots:
-		void onUpdateLanList(const QList<BonjourRecord> &);
-		void onLanBrowseError(DNSServiceErrorType);
-
-		void onResolved(BonjourRecord, QString, int);
-		void onLanResolveError(BonjourRecord, DNSServiceErrorType);
-#endif
 };
 
 #endif

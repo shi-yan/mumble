@@ -43,7 +43,6 @@
 #include "NetworkConfig.h"
 #include "ServerHandler.h"
 #include "MainWindow.h"
-#include "GlobalShortcut.h"
 
 #ifdef Q_OS_WIN
 #include "../../overlay/overlay_blacklist.h"
