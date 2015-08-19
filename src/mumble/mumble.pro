@@ -242,7 +242,6 @@ FORMS *= ConfigDialog.ui \
 include(translations.pri)
 
 PRECOMPILED_HEADER = mumble_pch.hpp
-INCLUDEPATH *= ../bonjour
 
 CONFIG(static) {
   # Ensure that static Mumble.app on Mac OS X
@@ -322,10 +321,6 @@ CONFIG(sbcelt) {
 
 !CONFIG(no-g15) {
   CONFIG *= g15
-}
-
-!CONFIG(no-bonjour) {
-  CONFIG *= bonjour
 }
 
 CONFIG(no-vorbis-recording) {
@@ -511,25 +506,6 @@ asio {
 	SOURCES	*= ASIOInput.cpp
 	FORMS *= ASIOInput.ui
 	INCLUDEPATH *= "$$ASIO_PATH/common" "$$ASIO_PATH/host" "$$ASIO_PATH/host/pc"
-}
-
-bonjour {
-	DEFINES *= USE_BONJOUR
-
-	HEADERS *= ../bonjour/BonjourRecord.h ../bonjour/BonjourServiceResolver.h ../bonjour/BonjourServiceBrowser.h BonjourClient.h
-	SOURCES *= ../bonjour/BonjourServiceResolver.cpp ../bonjour/BonjourServiceBrowser.cpp BonjourClient.cpp
-	win32 {
-		INCLUDEPATH *= "$$BONJOUR_PATH/include"
-		QMAKE_LIBDIR *= "$$BONJOUR_PATH/lib/win32"
-		LIBS *= -lDNSSD
-	}
-	unix:!macx {
-		system(pkg-config --exists avahi-compat-libdns_sd avahi-client) {
-			PKGCONFIG *= avahi-compat-libdns_sd avahi-client
-		} else {
-			LIBS *= -ldns_sd
-		}
-	}
 }
 
 dbus {

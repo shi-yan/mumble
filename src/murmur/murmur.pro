@@ -24,10 +24,6 @@ PRECOMPILED_HEADER = murmur_pch.h
 	CONFIG *= dbus
 }
 
-!CONFIG(no-bonjour) {
-	CONFIG *= bonjour
-}
-
 win32 {
   RC_FILE = murmur.rc
   CONFIG *= gui
@@ -145,26 +141,6 @@ ice {
 	macx:CONFIG(static) {
 		LIBS *= -lbz2 -liconv
 		QMAKE_CXXFLAGS *= -fPIC
-	}
-}
-
-bonjour {
-	DEFINES *= USE_BONJOUR
-
-	HEADERS *= ../bonjour/BonjourRecord.h ../bonjour/BonjourServiceRegister.h BonjourServer.h
-	SOURCES *= ../bonjour/BonjourServiceRegister.cpp BonjourServer.cpp
-	INCLUDEPATH *= ../bonjour
-	win32 {
-		INCLUDEPATH *= "$$BONJOUR_PATH/include"
-		QMAKE_LIBDIR *= "$$BONJOUR_PATH/lib/win32"
-		LIBS *= -lDNSSD
-	}
-	unix:!macx {
-		system(pkg-config --exists avahi-compat-libdns_sd avahi-client) {
-			PKGCONFIG *= avahi-compat-libdns_sd avahi-client
-		} else {
-			LIBS *= -ldns_sd
-		}
 	}
 }
 
