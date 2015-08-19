@@ -42,9 +42,7 @@
 #include "Plugins.h"
 #include "Global.h"
 #include "LCD.h"
-#ifdef USE_BONJOUR
-#include "BonjourClient.h"
-#endif
+
 #ifdef USE_DBUS
 #include "DBus.h"
 #endif
@@ -56,7 +54,6 @@
 #include "SocketRPC.h"
 #include "MumbleApplication.h"
 #include "ApplicationPalette.h"
-#include "Themes.h"
 
 #if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < 0x050000
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
@@ -311,8 +308,6 @@ int main(int argc, char **argv) {
 	DeferInit::run_initializers();
 
 	ApplicationPalette applicationPalette;
-	
-	Themes::apply();
 
 	QDir::addSearchPath(QLatin1String("translation"), QLatin1String(":/"));
 
@@ -364,10 +359,6 @@ int main(int argc, char **argv) {
 	// Initialize database
 	g.db = new Database();
 
-#ifdef USE_BONJOUR
-	// Initialize bonjour
-	g.bc = new BonjourClient();
-#endif
 
 	//TODO: This already loads up the DLL and does some initial hooking, even
 	// when the OL is disabled. This should either not be done (object instantiation)
@@ -510,11 +501,6 @@ int main(int argc, char **argv) {
 	delete g.db;
 	delete g.p;
 	delete g.l;
-
-#ifdef USE_BONJOUR
-	delete g.bc;
-#endif
-
 	delete g.o;
 
 	DeferInit::run_destroyers();
